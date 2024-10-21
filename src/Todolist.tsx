@@ -32,11 +32,15 @@ export const Todolist = ({title, tasks, removeTask, changeFilter, addTask}: Prop
         setNewTitle('')
     }
 
+    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        e.key === 'Enter' && onCLickAddTaskHandler()
+    }
+
     return (
         <div>
             <h3>{title}</h3>
             <div>
-                <input value={newTitle} onChange={changeTitle}/>
+                <input value={newTitle} onChange={changeTitle} onKeyPress={onKeyPressHandler}/>
                 <Button title={'+'} onClick={onCLickAddTaskHandler}/>
             </div>
             {
