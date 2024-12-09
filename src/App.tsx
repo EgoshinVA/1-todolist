@@ -1,89 +1,50 @@
-import React, {useState} from 'react';
-import './App.css';
-import {Todolist} from './Todolist';
-import {v1} from 'uuid';
+import React from 'react';
+import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
+import {Error404} from "./components/pages/Error404";
+import {Adidas} from "./components/pages/Adidas";
+import {Puma} from "./components/pages/Puma";
+import {Abibas} from "./components/pages/Abibas";
+import styles from "./components/Site.module.css";
+import {S} from './components/pages/_styles';
+import {Model} from "./components/pages/Model";
 
-export type FilterValuesType = "all" | "active" | "completed";
 
-type TodoListsType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
+const PATH = {
+    PAGE1: '/adidas',
+    PAGE2: '/puma',
+    PAGE3: '/abibas',
+    PAGE4: '/adidas/model/:id',
+} as const;
 
 function App() {
-    let todolistID1 = v1();
-    let todolistID2 = v1();
-
-    let [todoLists, setTodoLists] = useState<Array<TodoListsType>>([
-        {id: todolistID1, title: 'What to learn', filter: 'all'},
-        {id: todolistID2, title: 'What to buy', filter: 'all'},
-    ])
-
-    let [tasks, setTasks] = useState({
-        [todolistID1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "Rest API", isDone: false},
-            {id: v1(), title: "GraphQL", isDone: false},
-        ],
-        [todolistID2]: [
-            {id: v1(), title: "HTML&CSS2", isDone: true},
-            {id: v1(), title: "JS2", isDone: true},
-            {id: v1(), title: "ReactJS2", isDone: false},
-            {id: v1(), title: "Rest API2", isDone: false},
-            {id: v1(), title: "GraphQL2", isDone: false},
-        ]
-    });
-
-
-    const removeTask = (todoListId: string, id: string) => setTasks({
-        ...tasks,
-        [todoListId]: tasks[todoListId].filter(t => t.id != id)
-    });
-
-
-    const addTask = (todoListId: string, title: string) => {
-        let newTask = {id: v1(), title: title, isDone: false};
-        setTasks({...tasks, [todoListId]: [...tasks[todoListId], newTask]})
-    }
-
-    const changeStatus = (todoListId: string, taskId: string, isDone: boolean) => {
-        setTasks({
-            ...tasks,
-            [todoListId]: tasks[todoListId].map(el => el.id === taskId ? {...el, isDone: isDone} : el)
-        });
-    }
-
-    const changeFilter = (todoListId: string, filter: FilterValuesType) => {
-        setTodoLists(todoLists.map(todo => todo.id === todoListId ? {...todo, filter: filter} : todo))
-    }
-
-
     return (
-        <div className="App">
-            {todoLists.map(mapTodoLists => {
-                let filteredTasks = tasks[mapTodoLists.id]
-                if (mapTodoLists.filter === 'active')
-                    filteredTasks = tasks[mapTodoLists.id].filter(task => !task.isDone)
-                if (mapTodoLists.filter === 'completed')
-                    filteredTasks = tasks[mapTodoLists.id].filter(task => task.isDone)
+        <div>
+            <div className={styles.header}><h1>HEADER</h1></div>
+            <div className={styles.body}>
+                <div className={styles.nav}>
+                    <S.NavWrapper><NavLink to={PATH.PAGE1}>Adidas</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PAGE2}>Puma</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PAGE3}>Abibas</NavLink></S.NavWrapper>
+                    {/*<a href="page3">page3 HTML</a>*/}
+                </div>
+                <div className={styles.content}>
+                    <Routes>
+                        <Route path={'/'} element={<Navigate to={'/page1'}/>}/>
 
-                return <Todolist
-                    key={mapTodoLists.id}
-                    title={mapTodoLists.title}
-                    tasks={filteredTasks}
-                    removeTask={removeTask}
-                    addTask={addTask}
-                    changeTaskStatus={changeStatus}
-                    filter={mapTodoLists.filter}
-                    todoId={mapTodoLists.id}
-                    changeFilter={changeFilter}
-                />
-            })}
+                        <Route path={PATH.PAGE1} element={<Adidas/>}/>
+                        <Route path={PATH.PAGE2} element={<Puma/>}/>
+                        <Route path={PATH.PAGE3} element={<Abibas/>}/>
+                        <Route path={PATH.PAGE4} element={<Model/>}/>
+
+                        <Route path={'/error'} element={<Error404/>}/>
+                        <Route path={'/*'} element={<Navigate to={'/error'}/>}/>
+                    </Routes>
+                </div>
+            </div>
+            <div className={styles.footer}>abibas 2023</div>
         </div>
     );
 }
 
 export default App;
+
