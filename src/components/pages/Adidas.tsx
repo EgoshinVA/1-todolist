@@ -1,19 +1,19 @@
 import React from 'react';
-import adidasModel1 from './../../assets/AdiFOM_TRXN_Shoes_Black_IG7453_01_standard.webp'
-import adidasModel2 from './../../assets/Superstar_XLG_Shoes_Black_IG9777_01_standard.webp'
+import adidasModel1 from './../../assets/adidas/AdiFOM_TRXN_Shoes_Black_IG7453_01_standard.webp'
+import adidasModel2 from './../../assets/adidas/Superstar_XLG_Shoes_Black_IG9777_01_standard.webp'
 import adidasModel3
-    from './../../assets/PostMove_Mid_Cloudfoam_Super_Lifestyle_Basketball_Mid_Classic_Shoes_Black_GY7163_01_standard.webp'
+    from './../../assets/adidas/PostMove_Mid_Cloudfoam_Super_Lifestyle_Basketball_Mid_Classic_Shoes_Black_GY7163_01_standard.webp'
 import s from './../Site.module.css'
 import {Link} from "react-router-dom";
 
-export type AdidasItem = {
+export type ShoesItem = {
     id: number
     model: string
     collection: string
     price: string
     picture: string
 }
-export const adidasArr: AdidasItem[] = [
+export const adidasArr: ShoesItem[] = [
     {
         id: 1,
         model: 'ADIDAS ADIFOM TRXN',
@@ -43,7 +43,7 @@ export const Adidas = () => {
         <div>
             <h2 style={{textAlign: 'center'}}> ADIDAS</h2>
             <div className={s.imgWrapper}>
-                {adidasArr.map((ad) => <Link key={ad.id} to={`/adidas/model/${ad.id}`}>
+                {adidasArr.map((ad) => <Link key={ad.id} to={`/adidas/${ad.id}`}>
                     <img src={ad.picture}
                          alt={ad.model}
                          className={s.img}/>

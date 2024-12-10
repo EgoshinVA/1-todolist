@@ -13,7 +13,8 @@ const PATH = {
     PAGE1: '/adidas',
     PAGE2: '/puma',
     PAGE3: '/abibas',
-    PAGE4: '/adidas/model/:id',
+    PAGE4: '/:model/:id',
+    PAGE5: '/:model/:id',
 } as const;
 
 function App() {
@@ -29,12 +30,13 @@ function App() {
                 </div>
                 <div className={styles.content}>
                     <Routes>
-                        <Route path={'/'} element={<Navigate to={'/page1'}/>}/>
+                        <Route path={'/'} element={<Navigate to={PATH.PAGE1}/>}/>
 
                         <Route path={PATH.PAGE1} element={<Adidas/>}/>
                         <Route path={PATH.PAGE2} element={<Puma/>}/>
                         <Route path={PATH.PAGE3} element={<Abibas/>}/>
                         <Route path={PATH.PAGE4} element={<Model/>}/>
+                        <Route path={PATH.PAGE5} element={<Model/>}/>
 
                         <Route path={'/error'} element={<Error404/>}/>
                         <Route path={'/*'} element={<Navigate to={'/error'}/>}/>
