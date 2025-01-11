@@ -8,7 +8,8 @@ export const PATH = {
     PUMA: '/puma',
     ABIBAS: '/abibas',
     MODEL: '/:model/:id',
-    PRICES: '/prices'
+    PRICES: '/prices',
+    PROTECTED: '/protected',
 } as const;
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                     <S.NavWrapper><NavLink to={PATH.PUMA}>Puma</NavLink></S.NavWrapper>
                     <S.NavWrapper><NavLink to={PATH.ABIBAS}>Abibas</NavLink></S.NavWrapper>
                     <S.NavWrapper><NavLink to={PATH.PRICES}>Цены для оптовиков</NavLink></S.NavWrapper>
+                    <S.NavWrapper><NavLink to={PATH.PROTECTED}>Protected Page</NavLink></S.NavWrapper>
                 </div>
                 <div className={styles.content}>
                     <Outlet/>
