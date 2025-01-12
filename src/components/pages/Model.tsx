@@ -20,9 +20,9 @@ export const Model = () => {
         newArr = models[model].find(a => a.id === Number(id))
     return (
         <div>
-            <h2>{newArr?.model}</h2>
-            <img src={newArr?.picture} alt={newArr?.model} className={s.img}/>
-            <p>{newArr?.price}</p>
+            {newArr ? <div><h2>{newArr?.model}</h2>
+                <img src={newArr?.picture} alt={newArr?.model} className={s.img}/>
+                <p>{newArr?.price}</p></div> : <p>Модель отсутствует</p>}
         </div>
     )
 }
