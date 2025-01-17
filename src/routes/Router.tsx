@@ -34,6 +34,9 @@ const publicRoutes: RouteObject[] = [
     {
         path: PATH.MODEL,
         element: <Model/>
+    }, {
+        path: '/',
+        element: <Navigate to={PATH.ADIDAS}/>
     },
     {
         path: '/login',
